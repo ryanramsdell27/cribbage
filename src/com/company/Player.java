@@ -4,35 +4,36 @@ import java.util.Arrays;
 
 import static java.lang.System.exit;
 
-public class Player {
-    Card [] hand;
-    Card [] pegHand;
-    int pegCount;
-    int score;
+class Player {
+    private Card [] hand;
+    private Card [] pegHand;
+    private int pegCount;
+    private int score;
 
-    public Player(){
+    Player(){
         pegCount = 0;
     }
 
-    public void increaseScore(int points){
+    void increaseScore(int points){
         this.score += points;
     }
-    public int getScore(){
+    int getScore(){
         return this.score;
     }
 
-    public void set_hand(Card [] hand){
+    void set_hand(Card [] hand){
         this.hand = hand;
+        this.pegCount = 0;
     }
 
-    public void discard(Card [] crib, int start){
+    void discard(Card [] crib, int start){
         crib[start] = hand[4];
         crib[start+1]=hand[5];
         hand = Arrays.copyOfRange(hand, 0,4);
         this.pegHand = hand;
     }
 
-    public int peg(int count){
+    int peg(int count){
         int ret = 0;
         if( !(this.canPeg(count) && this.hasCards()) ) return ret;
         for(int i = 0; i < 4; i++){
@@ -56,14 +57,20 @@ public class Player {
         this.increaseScore(Deck.score(hand, starter));
     }
 
-    public boolean canPeg(int count){
+    boolean canPeg(int count){
         for(int i = 0; i < 4; i++){
             if(!pegHand[i].getPlayed() && count + pegHand[i].getValue() <= 31) return true;
         }
         return false;
     }
 
-    public boolean hasCards(){
+    boolean hasCards(){
         return pegCount < 4;
+    }
+
+    void cleanHand(){
+        for(int i = 0; i < 4; i++){
+            this.hand[i].setPlayed(false);
+        }
     }
 }

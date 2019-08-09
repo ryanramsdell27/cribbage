@@ -3,10 +3,10 @@ package com.company;
 import java.util.Comparator;
 
 public class Card implements Comparator<Card>, Comparable<Card> {
-    int value;
-    boolean played;
+    private int value;
+    private boolean played;
 
-    public Card(Integer i){
+    Card(Integer i){
         value = i;
         played = false;
     }
@@ -36,11 +36,11 @@ public class Card implements Comparator<Card>, Comparable<Card> {
         return value + suit;
     }
 
-    public int getValue() {
+    int getValue() {
         if(value < 0) return -1;
 
         int valu_num = value % 13;
-        int value = 0;
+        int value;
         switch(valu_num){
             case 10:
             case 11:
@@ -48,6 +48,14 @@ public class Card implements Comparator<Card>, Comparable<Card> {
             default: value = valu_num + 1;
         }
         return value;
+    }
+
+    int getRank() {
+        return value % 13;
+    }
+
+    int getSuit(){
+        return value % 4;
     }
 
     @Override
@@ -60,13 +68,10 @@ public class Card implements Comparator<Card>, Comparable<Card> {
         return this.getValue() - o.getValue();
     }
 
-    public void setValue(int val){
-        this.value = val;
-    }
-    public void setPlayed(boolean play){
+    void setPlayed(boolean play){
         this.played = play;
     }
-    public boolean getPlayed(){
+    boolean getPlayed(){
         return this.played;
     }
 }

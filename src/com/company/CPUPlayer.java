@@ -1,5 +1,5 @@
 package com.company;
 
-public class CPUPlayer extends Player {
+class CPUPlayer extends Player {
 
 }
