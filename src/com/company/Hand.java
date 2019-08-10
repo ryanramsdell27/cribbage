@@ -32,7 +32,7 @@ class Hand {
         int j = 0;
         for(int i = 0; i < hand.length; i++){
             if(i != a && i != b) {
-                full[j] = hand[j];
+                full[j] = hand[i];
                 j++;
             }
 
@@ -45,8 +45,19 @@ class Hand {
         return disc;
     }
 
-    Card [] getHand(){
+    Card [] getFull(){
         return this.full;
+    }
+    Card [] getDeal() { return this.hand; }
+
+    static String handToString(Card [] h){
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < h.length; i++){
+            if(h[i].toString().length() == 2) sb.append(' ');
+            sb.append(h[i].toString());
+            if(i != h.length-1) sb.append(" |");
+        }
+        return sb.toString();
     }
 
     int score(){

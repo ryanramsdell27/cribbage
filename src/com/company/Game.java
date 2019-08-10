@@ -2,7 +2,6 @@ package com.company;
 
 import java.util.Arrays;
 
-@SuppressWarnings("SpellCheckingInspection")
 class Game {
 
     private final Player [] players;
@@ -15,7 +14,7 @@ class Game {
         deck = new Deck();
         crib = new Hand();
         players = new Player[2];
-        players[0] = new Player();
+        players[0] = new InteractivePlayer();
         players[1] = new CPUPlayer();
     }
 

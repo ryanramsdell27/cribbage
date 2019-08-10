@@ -1,24 +1,40 @@
 package com.company;
 
-import java.util.Arrays;
-
 import static java.lang.System.exit;
 
 class Player {
     //private Card [] hand;
     private Hand hand;
-    private int pegCount;
+    int pegCount;
     private int score;
 
     Player(){
-        pegCount = 0;
+        this.pegCount = 0;
     }
 
-    void increaseScore(int points){
-        this.score += points;
+    Card peg(int count){
+        Card nextCard = null;
+        Card [] pegHand = hand.getFull();
+        if( !(this.canPeg(count) && this.hasCards()) ) return nextCard;
+        for(int i = 0; i < 4; i++){
+            if(pegHand[i].getPlayed()) continue;
+            if(count + pegHand[i].getValue() <= 31) {
+                nextCard = pegHand[i];
+                pegHand[i].setPlayed(true);
+                break;
+            }
+        }
+        this.pegCount++;
+        if(nextCard == null) exit(-1);
+        return nextCard;
     }
-    int getScore(){
-        return this.score;
+
+    Card [] discard(){
+        return this.hand.discard(4,5);
+    }
+
+    Hand getHand(){
+        return this.hand;
     }
 
     void setHand(Card [] hand, Card starter){
@@ -27,30 +43,12 @@ class Player {
         this.pegCount = 0;
     }
 
-    Card [] discard(){
-        return this.hand.discard(4,5);
+    void increaseScore(int points){
+        this.score += points;
     }
 
-    Card peg(int count){
-        //int ret = 0;
-        Card nextCard = null;
-        Card [] pegHand = hand.getHand();
-        if( !(this.canPeg(count) && this.hasCards()) ) return nextCard;
-        for(int i = 0; i < 4; i++){
-            if(pegHand[i].getPlayed()) continue;
-            if(count + pegHand[i].getValue() <= 31) {
-                nextCard = pegHand[i];
-                //ret = pegHand[i].getValue();
-                pegHand[i].setPlayed(true);
-                break;
-            }
-        }
-        //TODO delete System.out.println("add" + ret);
-        this.pegCount++;
-        //if(ret == 0) exit(1);
-        if(nextCard == null) exit(-1);
-        return nextCard;
-        //return ret;
+    int getScore(){
+        return this.score;
     }
 
     int score(Hand hand){
