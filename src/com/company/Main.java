@@ -10,6 +10,5 @@ public class Main {
             //cribbage.deal();
             cribbage.step();
         }
-
     }
 }

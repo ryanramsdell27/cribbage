@@ -58,6 +58,10 @@ public class Card implements Comparator<Card>, Comparable<Card> {
         return value % 4;
     }
 
+    int getIntRepresentation(){
+        return this.value;
+    }
+
     @Override
     public int compare(Card card1, Card card2) {
         return card1.getValue() - card2.getValue();

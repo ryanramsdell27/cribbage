@@ -2,9 +2,10 @@ package com.company;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Random;
 
-public class Deck {
+public class Deck implements Iterable {
     private ArrayList<Card> deck;
     private Random rnd = new Random(12);
     private int top = 0;
@@ -32,7 +33,10 @@ public class Deck {
         Collections.shuffle(deck, rnd);
     }
 
-
+    @Override
+    public Iterator<Card> iterator() {
+        return deck.iterator();
+    }
 
     @Override
     public String toString() {

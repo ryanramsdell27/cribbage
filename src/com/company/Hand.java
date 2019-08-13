@@ -62,7 +62,7 @@ class Hand {
 
     int score(){
         Arrays.sort(full, 0, 4);
-        System.out.println(Arrays.toString(full));
+//        System.out.println(Arrays.toString(full));
         int score = 0;
 
         // Count 15s
@@ -98,7 +98,7 @@ class Hand {
         int max_run = 5;
         score += getRunScore(hand_c, max_run);
 
-        System.out.println("Scored +" + score);
+//        System.out.println("Scored +" + score);
         return score;
     }
 
@@ -126,6 +126,14 @@ class Hand {
     boolean canPeg(int count){
         for (Card card : full) {
             if (!card.getPlayed() && count + card.getValue() <= 31) return true;
+        }
+        return false;
+    }
+
+    boolean contains(Card card){
+        int test = card.getIntRepresentation();
+        for(int i = 0; i < this.hand.length; i++){
+            if(this.hand[i].getIntRepresentation() == test) return true;
         }
         return false;
     }

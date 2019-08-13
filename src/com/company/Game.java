@@ -14,8 +14,9 @@ class Game {
         deck = new Deck();
         crib = new Hand();
         players = new Player[2];
-        players[0] = new InteractivePlayer();
-        players[1] = new CPUPlayer();
+        //players[0] = new InteractivePlayer();
+        players[0] = new CPUPlayer(0);
+        players[1] = new CPUPlayer(1);
     }
 
     boolean done(){
@@ -52,14 +53,14 @@ class Game {
         int current_count = 0;
         Player p1 = players[dealer];
         Player p2 = players[Math.abs(dealer-1)];
-        System.out.println("Current count is " + current_count);
+//        System.out.println("Current count is " + current_count);
 
         Card [] history = new Card[8];
         int hist_count = 0;
         while(p1.hasCards() || p2.hasCards()){
 
             if(!p1.canPeg(current_count) && !p2.canPeg(current_count)){
-                System.out.println("Count restart");
+//                System.out.println("Count restart");
                 current_count = 0;
                 for(int i = 0; i < 8; i++) history[i] = null;
                 hist_count = 0;
@@ -76,7 +77,7 @@ class Game {
                     hist_count++;
                     int pegged = score_peg(history, hist_count, current_count, this.players);
                     p.increaseScore(pegged);
-                    System.out.printf("%d +%d from p%d for +%d points\n", current_count, p_play.getValue(), play+1, pegged);
+//                    System.out.printf("%d +%d from p%d for +%d points\n", current_count, p_play.getValue(), play+1, pegged);
                 }
             }
         }
@@ -110,6 +111,7 @@ class Game {
     private void printScore(){
         System.out.printf("p1 %d p2 %d\n", players[0].getScore(), players[1].getScore());
     }
+
 }
 
 
