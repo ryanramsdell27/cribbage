@@ -7,9 +7,11 @@ class Player {
     private Hand hand;
     int pegCount;
     private int score;
+    boolean isDealer;
 
     Player(){
         this.pegCount = 0;
+        this.isDealer = false;
     }
 
     Card peg(int count){
@@ -69,5 +71,9 @@ class Player {
 
     void cleanHand(){
         this.hand.cleanHand();
+    }
+
+    void setDealer(boolean val){
+        this.isDealer = val;
     }
 }

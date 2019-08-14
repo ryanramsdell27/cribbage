@@ -7,16 +7,28 @@ class Game {
     private final Player [] players;
     // Score_Board
     private final Deck deck;
-    private final int dealer = 0;
+    private int dealer;
     private final Hand crib;
 
     Game(){
         deck = new Deck();
         crib = new Hand();
+        dealer = 0;
         players = new Player[2];
         //players[0] = new InteractivePlayer();
         players[0] = new CPUPlayer(0);
         players[1] = new CPUPlayer(1);
+    }
+
+    // initiate play styles. a and b correspond to CPUPlayer play styles or interactive if -1
+    Game(int a, int b){
+        deck = new Deck();
+        crib = new Hand();
+        players = new Player[2];
+        if(a == -1) players[0] = new InteractivePlayer();
+        else players[0] = new CPUPlayer(a);
+        players[1] = new CPUPlayer(b);
+
     }
 
     boolean done(){
@@ -24,7 +36,13 @@ class Game {
     }
 
     private void deal(){
+        // Swap dealer
+        players[dealer].setDealer(false);
+        dealer = Math.abs(dealer - 1);
+        players[dealer].setDealer(true);
+
         deck.shuffle();
+
         Card starter = deck.get_sub(1)[0];
         if(starter.getRank() == 10) players[dealer].increaseScore(2); // nibs
         crib.setStarter(starter);
@@ -70,7 +88,7 @@ class Game {
             for(int i = 0; i < 2; i++) {
                 int play = Math.abs(dealer-i);
                 Player p = players[play];
-                Card p_play = p.peg(current_count); //TODO should be returning card, right now we return value which fails in pegging of face cards
+                Card p_play = p.peg(current_count);
                 if (p_play != null) {
                     current_count += p_play.getValue();
                     history[hist_count] = p_play;
@@ -84,7 +102,6 @@ class Game {
     }
 
     private int score_peg(Card[] history, int hist_count, int current_count, Player[] players){
-        //TODO count nibs
         int score = 0;
 
         // check if magic number
@@ -93,6 +110,7 @@ class Game {
         if(current_count != 31 && !players[0].canPeg(current_count) && !players[1].canPeg(current_count)) score += 1;
 
         // check for runs, can be a max of 7 in a row
+        //TODO wrong way of counting runs, only checks if whole history is run, not past n cards for n = 3...hist_count
         Card [] history_c = Arrays.copyOfRange(history, 0, hist_count);
         Arrays.sort(history_c);
         score += Hand.getRunScore(history_c, hist_count);

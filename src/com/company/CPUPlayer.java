@@ -37,7 +37,7 @@ class CPUPlayer extends Player {
         int [] best_scores = new int [3];
         int [] best_index  = new int [6];
 
-        // these two loops create all 15 = 6 nCr 4 combinations of 6 bit numbers with exactly 2 0s
+        // these two outer loops create all 15 = 6 nCr 4 combinations of 6 bit numbers with exactly 2 0s
         for(int i = 0; i < 5; i++){ // this is 5 to account for the second 0
             for(int j = i+1; j < 6; j++){
                 Card [] selected = new Card[5];
@@ -49,7 +49,7 @@ class CPUPlayer extends Player {
                     }
                 }
                 int [] metrics = getScores(selected);
-                if(deal[i].getValue()+deal[j].getValue() == 15) {
+                if(this.isDealer && deal[i].getValue()+deal[j].getValue() == 15) {
                     for(int m = 0; m < metrics.length; m++){
                         metrics[m] -= 2;
                     }
@@ -57,15 +57,15 @@ class CPUPlayer extends Player {
 
                 for(int m = 0; m < metrics.length; m++){
                     if(metrics[m] > best_scores[m]) {
-                        best_index[m] = i;
-                        best_index[m+1] = j;
+                        best_index[2*m] = i;
+                        best_index[2*m+1] = j;
                         best_scores[m] = metrics[m];
                     }
                 }
 
             }
         }
-        int [] to_delete = {best_index[this.play_style], best_index[this.play_style+1]};
+        int [] to_delete = {best_index[2*this.play_style], best_index[2*this.play_style+1]};
         System.out.printf("Discarding %s and %s for best score of %d\n", deal[to_delete[0]].toString(), deal[to_delete[1]].toString(), best_scores[this.play_style]);
         return to_delete;
     }

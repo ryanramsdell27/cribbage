@@ -62,7 +62,7 @@ class Hand {
 
     int score(){
         Arrays.sort(full, 0, 4);
-//        System.out.println(Arrays.toString(full));
+        System.out.println(Arrays.toString(full)); //TODO delete
         int score = 0;
 
         // Count 15s
@@ -98,16 +98,26 @@ class Hand {
         int max_run = 5;
         score += getRunScore(hand_c, max_run);
 
-//        System.out.println("Scored +" + score);
+        System.out.println("Scored +" + score); //TODO delete
         return score;
     }
+//TODO count runs not starting at sorted index 0, double count runs with duplicate cards
+    static int getRunScore(Card[] hand, int max_run) {
+//        Card [] hand_c = Arrays.copyOf(hand, hand.length);
+//        Arrays.sort(hand_c);
+//        for(int i = 0; i < hand.length-3; i++){
+//            for(int run_length = 3; run_length <= max_run || run_length + i < hand.length; run_length++){
+//                for(int j = i; j < i+run_length; j++){
+//                    if(hand[j].getRank() != hand[j+1].getRank() - 1) isRun = false;
+//                }
+//        }
 
-    static int getRunScore(Card[] hand_c, int max_run) {
+
         int score = 0;
         for(int i = 3; i <= max_run; i++){
             boolean isRun = true;
             for(int j = 0; j < i-1; j++){
-                if(hand_c[j].getRank() != hand_c[j+1].getRank()-1) isRun = false;
+                if(hand[j].getRank() != hand[j+1].getRank()-1) isRun = false;
             }
             if(isRun) {
                 if (i == 3) score += 3;
@@ -115,6 +125,7 @@ class Hand {
             }
         }
         return score;
+
     }
 
     void cleanHand(){
