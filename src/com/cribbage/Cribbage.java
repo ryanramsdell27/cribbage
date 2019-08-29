@@ -11,7 +11,7 @@ public class Cribbage implements Game {
     /**
      * Create a new deck, shuffle, and deal to players
      */
-    Cribbage(){
+    public Cribbage(){
         deck = new Deck();
         deck.shuffle();
 

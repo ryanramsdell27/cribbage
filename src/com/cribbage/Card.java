@@ -1,5 +1,9 @@
 package com.cribbage;
 
+/**
+ * Representation of a card from a standard 5s card French deck.
+ * @author Ryan
+ */
 public class Card implements Comparable<Card> {
     int suit;
     int rank;
@@ -10,7 +14,7 @@ public class Card implements Comparable<Card> {
      * In reverse we would do suit*4 + rank to get a simple int representation of a card
      * @param init The int representation of a card
      */
-    Card(int init){
+    public Card(int init){
         this.suit = init % 4;
         this.rank = init % 13 + 1;
         if(this.rank > 10) this.value = 10;

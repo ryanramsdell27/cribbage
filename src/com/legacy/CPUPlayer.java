@@ -1,4 +1,4 @@
-package com.company;
+package com.legacy;
 
 import java.util.Iterator;
 

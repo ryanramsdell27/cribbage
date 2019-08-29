@@ -1,4 +1,4 @@
-package com.company;
+package com.legacy;
 
 import java.util.ArrayList;
 import java.util.Collections;

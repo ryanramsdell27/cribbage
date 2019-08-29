@@ -3,60 +3,9 @@ package com.cribbage;
 import java.util.*;
 
 /**
- * An iterator for the elements in the power set of this hand. Enumerates the power set
- * by creating an n-bit binary representation of the given set and cycling through all 2^n
- * values of the representation.
- * Assumes that the given set will not change before use of the iterator is done. Changes
- * in cardinality or in ordering will break this
- */
-class PowerSetIterator<E> implements Iterator{
-    int loc = 0;
-    int num_bits;
-    ArrayList<E> set;
-
-    /**
-     * Creates a new iterator to enumerate the 2^num_bits elements in the power set
-     * @param set The set
-     */
-    PowerSetIterator(ArrayList<E> set){
-        this.num_bits = set.size();
-        this.set = set;
-    }
-
-    /**
-     * Track that our location in the enumeration of the power set is less
-     * than it's cardinality of 2^num_bits
-     * @return True if there are still elements to enumerate
-     */
-    @Override
-    public boolean hasNext() {
-        return this.loc < 1<<num_bits;
-    }
-
-    /**
-     * Generates the next set in the enumeration of the Power set
-     * Converts the loc marker into a bit array, any set bits indicate
-     * that that element will be in the returned set. Constructs said
-     * set, increases the marker, and returns the set.
-     * @return An element of the power set of the given set, i.e., a subset of the given set
-     */
-    @Override
-    public Object next() {
-        ArrayList<E> ret = new ArrayList<E>();
-        BitSet bs = BitSet.valueOf( new long[]{this.loc});
-        //System.out.print(bs.toString() + " ");
-        for(int i = 0; i < this.num_bits; i++){
-            if(bs.get(i)) ret.add(this.set.get(i));
-        }
-        loc++;
-        //System.out.print(loc + " ");
-        return ret;
-    }
-}
-
-/**
  * A playable hand class. Stores a collection of cards with the ability to add and remove from the collection.
  * Maintains the starter card, and has scoring functionality
+ * @author Ryan
  */
 public class Hand implements Iterable<Card> {
     private final int max_hand_size = 7;
@@ -67,7 +16,7 @@ public class Hand implements Iterable<Card> {
     /**
      * Constructor creates a new array of max size
      */
-    Hand(){
+    public Hand(){
         this.hand = new ArrayList<>(max_hand_size);
         this.starter = null;
         this.is_crib = false;
@@ -91,6 +40,11 @@ public class Hand implements Iterable<Card> {
         return psi;
     }
 
+    public Iterator<ArrayList<Card>> getCombinationIterator(int num_elements){
+        CombinationIterator<Card[]> ci = new CombinationIterator(this.hand, num_elements);
+        return ci;
+    }
+
     /**
      * Find the number of cards in the hand by looking at size of card list
      * @return The number of cards in the hand
@@ -103,7 +57,7 @@ public class Hand implements Iterable<Card> {
      * Adds a card to the hand
      * @param c The Card object to add
      */
-    void add(Card c){
+    public void add(Card c){
         this.hand.add(c);
     }
 

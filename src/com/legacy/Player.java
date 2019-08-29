@@ -1,4 +1,4 @@
-package com.company;
+package com.legacy;
 
 import static java.lang.System.exit;
 

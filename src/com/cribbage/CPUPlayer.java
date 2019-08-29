@@ -6,6 +6,7 @@ public class CPUPlayer extends Player {
 
     @Override
     public Card[] discard() {
+        // make a copy of the hand
         Card [] dis = new Card[2];
         Iterator<Card> itt = this.hand.iterator();
         dis[0] = itt.next();

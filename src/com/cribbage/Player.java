@@ -23,7 +23,7 @@ public abstract class Player {
     /**
      * Constructor for Player that creates hand
      */
-    Player(){
+    public Player(){
         this.hand = new Hand();
     }
 
