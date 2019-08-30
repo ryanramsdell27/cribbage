@@ -25,6 +25,7 @@ public class Deck implements Iterable {
      * Shuffles the deck using the static rng
      */
     void shuffle(){
+        this.top = 0;
         Collections.shuffle(deck, rng);
     }
 

@@ -1,5 +1,6 @@
 package com.cribbage;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class InteractivePlayer extends Player {
@@ -15,7 +16,7 @@ public class InteractivePlayer extends Player {
     }
 
     @Override
-    public Card peg() {
+    public Card peg(ArrayList<Card> peg_pile) {
         return null;
     }
 }

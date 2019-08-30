@@ -77,6 +77,13 @@ public class Hand implements Iterable<Card> {
         this.hand.remove(c);
     }
 
+    /**
+     * Removes all cards from the cand
+     */
+    void clear(){
+        this.hand.clear();
+    }
+
     void setStarter(Card c){
         this.starter = c;
     }
@@ -94,7 +101,7 @@ public class Hand implements Iterable<Card> {
             int old_score = score;
             ArrayList<Card> set = psi.next();
 
-            if(isFifteen(set)) score += 2;
+            if(isTotal(set,15)) score += 2;
             if(isDuplicate(set)) score += 2;
             // TODO investigate. Should count the first 3 cards of the set as a full run then adds on for the rest
             if(isRun(set)){
@@ -120,12 +127,13 @@ public class Hand implements Iterable<Card> {
      * @param set A list of cards
      * @return True if the sum of the cards add to 15
      */
-    boolean isFifteen(ArrayList<Card> set){
+    static boolean isTotal(ArrayList<Card> set, int total){
+        if(set.size() == 0) return false;
         int sum = 0;
         for(Card c : set){
             sum += c.value;
         }
-        return sum == 15;
+        return sum == total;
     }
 
     /**
@@ -133,17 +141,17 @@ public class Hand implements Iterable<Card> {
      * @param set A set of cards
      * @return True if duplicate
      */
-    boolean isDuplicate(ArrayList<Card> set){
+    static boolean isDuplicate(List<Card> set){
         if(set.size() != 2) return false;
         return set.get(0).rank == set.get(1).rank;
     }
 
     /**
-     * Checks if a set of cards' ranks form a run
+     * Checks if a set of cards' ranks form a run at least 3 card long
      * @param set A list of cards
      * @return True if there is a run
      */
-    boolean isRun(ArrayList<Card> set){
+    static boolean isRun(List<Card> set){
         if(set.size() < 3) return false;
         Collections.sort(set);
         for(int i = 0; i < set.size()-1; i++){
@@ -159,7 +167,7 @@ public class Hand implements Iterable<Card> {
      * @param set A list of cards
      * @return True if a valid flush exists in the hand
      */
-    boolean isFlush(ArrayList<Card> set){
+    boolean isFlush(List<Card> set){
         if((!this.is_crib && set.size() < 4) || (this.is_crib && set.size() < 5)) return false;
         int base = set.get(0).suit;
         for(Card c : set){
@@ -175,7 +183,7 @@ public class Hand implements Iterable<Card> {
      * @param set
      * @return True if the set awards nob
      */
-    boolean isNob(ArrayList<Card> set){
+    boolean isNob(List<Card> set){
         if(set.size() != 1) return false;
         Card c = set.get(0);
         if(c == this.starter || c.rank != 11) return false;
