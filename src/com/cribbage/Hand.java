@@ -1,5 +1,6 @@
 package com.cribbage;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -70,6 +71,14 @@ public class Hand implements Iterable<Card> {
     }
 
     /**
+     * Checks if the hand contains a specific card
+     * @param card The card to check if in hand
+     * @return True if the hand contains the card
+     */
+    boolean contains(Card card){
+        return this.hand.contains(card);
+    }
+    /**
      * Removes a card from the hand
      * @param c The Card object to remove
      */
@@ -117,7 +126,7 @@ public class Hand implements Iterable<Card> {
             }
             if(isNob(set)) score++;
 
-            if(score > old_score) System.out.printf("%s +%d\n", set,score-old_score);
+//            if(score > old_score) System.out.printf("%s +%d\n", set,score-old_score); //TESTING
         }
         return score;
     }

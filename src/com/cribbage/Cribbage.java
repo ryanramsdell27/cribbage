@@ -35,6 +35,8 @@ public class Cribbage implements Game {
     public void step(){
         deck.shuffle();
         Card starter = deck.deal(1)[0];
+        if(starter.rank == 11) this.players[dealer].increaseScore(2);
+        if(isDone()) return;
 
         /* Deal and discard, also set up the crib */
         for(Player p : this.players){
@@ -62,7 +64,7 @@ public class Cribbage implements Game {
             if(played != null) {
                 peg_pile.add(played);
                 running_sum += played.value;
-                System.out.printf("Player %d pegged %s for total %d\n", pegger, played, running_sum);
+//                System.out.printf("Player %d pegged %s for total %d\n", pegger, played, running_sum); //TESTING
 
                 /* Score pegged card */
                 if (Hand.isTotal(peg_pile, 15)) this.players[pegger].increaseScore(2);
@@ -82,12 +84,12 @@ public class Cribbage implements Game {
                     this.players[pegger].increaseScore(1);
                     peg_pile.clear();
                     running_sum = 0;
-                    System.out.println("Cleared peg pile");
+//                    System.out.println("Cleared peg pile"); //TESTING
                 }
             }
 
             can_peg = this.canPeg(peg_pile);
-
+            if(isDone()) return;
             pegger = (pegger+1) % this.players.length;
         }
 
@@ -95,8 +97,10 @@ public class Cribbage implements Game {
         for(int i = 0; i < this.players.length; i++){
             Player cur_play = this.players[(this.dealer+i+1)%this.players.length];
             cur_play.increaseScore(cur_play.hand.scoreHand());
+            if(isDone()) return;
         }
         this.players[this.dealer].increaseScore(this.crib.scoreHand());
+        if(isDone()) return;
 
         /* Set up next deal */
         this.dealer = (this.dealer+1)%this.players.length;

@@ -52,7 +52,7 @@ public class Deck implements Iterable {
      * @return A Card iterator over a standard deck of cards
      */
     @Override
-    public Iterator iterator() {
+    public Iterator<Card> iterator() {
         return this.deck.iterator();
     }
 }
