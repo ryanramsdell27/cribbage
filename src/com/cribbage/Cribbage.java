@@ -22,10 +22,11 @@ public class Cribbage implements Game {
         this.deck.shuffle();
 
         this.players = new Player[2];
-        this.players[0] = new CPUPlayer();
-        this.players[1] = new CPUPlayer();
+        this.players[0] = new CPUPlayerMIN();
+        this.players[1] = new CPUPlayerMAX();
 
         this.dealer = 0;
+        this.players[this.dealer].setDealer(true);
     }
 
     /**
@@ -42,12 +43,12 @@ public class Cribbage implements Game {
         for(Player p : this.players){
             p.hand.clear();
             p.hand.add(deck.deal(6));
+            System.out.print(p.toString() + " --> ");
             crib.add(p.discard());
             p.setPeg();
             p.hand.add(starter);
             p.hand.setStarter(starter);
-            System.out.println(p.toString());
-            System.out.println(p.hand.scoreHand());
+            System.out.println(p.toString() + " " + p.hand.scoreHand());
         }
         this.crib.clear();
         if(this.players.length == 3) this.crib.add(this.deck.deal(1));
@@ -103,9 +104,11 @@ public class Cribbage implements Game {
         if(isDone()) return;
 
         /* Set up next deal */
+        this.players[dealer].setDealer(false);
         this.dealer = (this.dealer+1)%this.players.length;
+        this.players[dealer].setDealer(true);
 
-        for(Player p:this.players) System.out.printf("Player %s scored %d\n", p.toString(), p.score);
+        for(Player p:this.players) System.out.printf("%s score is %d\n", p.toString(), p.score);
 
     }
 

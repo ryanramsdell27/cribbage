@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public abstract class Player {
     int score;
+    boolean dealer;
     Hand hand;
     Hand peg;
 
@@ -16,6 +17,7 @@ public abstract class Player {
     Card[] discard(Card [] cards){
         Card [] ret = new Card[cards.length];
         int index = 0;
+        this.dealer = false;
         for(Card c :cards){
             ret[index] = c;
             this.hand.remove(c);
@@ -86,5 +88,9 @@ public abstract class Player {
             sb.append(" ");
         }
         return sb.toString();
+    }
+
+    void setDealer(boolean b){
+        this.dealer = b;
     }
 }
