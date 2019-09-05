@@ -41,6 +41,7 @@ public class CPUPlayerAVG extends CPUPlayer {
                 for(int i = 0; i < temp_dis.size(); i++){
                     dis[i] = temp_dis.get(i);
                 }
+                best_avg = running_avg;
             }
 
         }

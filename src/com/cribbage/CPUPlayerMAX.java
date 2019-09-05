@@ -8,44 +8,44 @@ public class CPUPlayerMAX extends CPUPlayer {
 
     @Override
     public Card[] discard() {
-        Hand test = new Hand();
-        Card[] copy_list = new Card[4];
-        Iterator<ArrayList<Card>> combItt = this.hand.getCombinationIterator(4);
-        int max_score = 0;
-        ArrayList<Card> dis = new ArrayList<>(2);
-        while (combItt.hasNext()) {
-            test.clear();
-            test.add(combItt.next().toArray(copy_list));
-            Iterator<Card> deck_iterator = this.deck.iterator();
-            while (deck_iterator.hasNext()) {
-                Card possible = deck_iterator.next();
-                if (this.hand.contains(possible)) continue;
-                test.add(possible);
-                test.setStarter(possible);
-                int possible_score = test.scoreHand();
-                if(possible_score > max_score){
-                    ArrayList<Card> temp_dis = new ArrayList<>(dis.size());
-                    for(Card c:this.hand){
-                        if(!test.contains(c)) temp_dis.add(c);
-                    }
-                    int penalty = 0;
-                    if(this.dealer && Hand.isTotal(temp_dis, 15)) penalty -= 2;
-                    if(this.dealer && Hand.isDuplicate(temp_dis))penalty -= 2;
-                    if(!this.dealer) penalty *= -1;
-                    possible_score += penalty;
-                    if(possible_score < max_score) continue;
-                    max_score = possible_score;
-                    dis.clear();
-                    dis = temp_dis;
-
-                }
-                test.remove(possible);
+        Iterator<ArrayList<Card>> comb_it = this.hand.getCombinationIterator(4);
+        int best_score = -10000; //TODO define this better so it makes sense that this is unattainable (-52*2?)
+        Card [] dis = new Card[this.hand.size()-4];
+        Card [] copy_list = new Card[4];
+        while(comb_it.hasNext()){
+            ArrayList<Card> test_set = comb_it.next();
+            ArrayList<Card> temp_dis = new ArrayList<Card>(dis.length);
+            for(Card c:this.hand){
+                if(!test_set.contains(c)) temp_dis.add(c);
             }
-        }
+            int penalty = 0;
+            Iterator<Card> card_it = deck.iterator();
+            if(Hand.isTotal(temp_dis, 15)) penalty += 2;
+            if(Hand.isDuplicate(temp_dis)) penalty += 2;
+            if(!this.dealer) penalty *= -1;
 
-        Card[] dis_array = new Card[dis.size()];
-        super.discard(dis.toArray(dis_array));
-        return dis_array;
+            while(card_it.hasNext()){
+                Card test_card = card_it.next();
+                if(this.hand.contains(test_card)) continue;
+
+                Hand test_hand = new Hand();
+                test_hand.add(test_set.toArray(copy_list));
+                test_hand.add(test_card);
+                test_hand.setStarter(test_card);
+
+                int possible_score = test_hand.scoreHand() + penalty;
+                if(possible_score > best_score){
+                    for(int i = 0; i < temp_dis.size(); i++){
+                        dis[i] = temp_dis.get(i);
+                    }
+                    best_score = possible_score;
+                }
+            }
+
+
+        }
+        super.discard(dis);
+        return dis;
     }
 }
 

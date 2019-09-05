@@ -42,6 +42,7 @@ public class CPUPlayerMIN extends CPUPlayer {
                 for(int i = 0; i < temp_dis.size(); i++){
                     dis[i] = temp_dis.get(i);
                 }
+                min_guaranteed = possible_score;
             }
 
         }

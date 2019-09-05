@@ -16,16 +16,16 @@ public class Cribbage implements Game {
     /**
      * Create a new deck, shuffle, and deal to players
      */
-    public Cribbage(){
+    public Cribbage(int dealer){
         this.crib = new Hand();
         this.deck = new Deck();
         this.deck.shuffle();
 
         this.players = new Player[2];
         this.players[0] = new CPUPlayerMIN();
-        this.players[1] = new CPUPlayerMAX();
+        this.players[1] = new CPUPlayerAVG();
 
-        this.dealer = 0;
+        this.dealer = dealer;
         this.players[this.dealer].setDealer(true);
     }
 
@@ -43,12 +43,12 @@ public class Cribbage implements Game {
         for(Player p : this.players){
             p.hand.clear();
             p.hand.add(deck.deal(6));
-            System.out.print(p.toString() + " --> ");
+//            System.out.print(p.toString() + " --> "); // TESTING
             crib.add(p.discard());
             p.setPeg();
             p.hand.add(starter);
             p.hand.setStarter(starter);
-            System.out.println(p.toString() + " " + p.hand.scoreHand());
+//            System.out.println(p.toString() + " " + p.hand.scoreHand()); // TESTING
         }
         this.crib.clear();
         if(this.players.length == 3) this.crib.add(this.deck.deal(1));
@@ -108,7 +108,7 @@ public class Cribbage implements Game {
         this.dealer = (this.dealer+1)%this.players.length;
         this.players[dealer].setDealer(true);
 
-        for(Player p:this.players) System.out.printf("%s score is %d\n", p.toString(), p.score);
+//        for(Player p:this.players) System.out.printf("%s score is %d\n", p.toString(), p.score); // TESTING
 
     }
 
@@ -121,14 +121,29 @@ public class Cribbage implements Game {
     }
 
     /**
-     * Determine if the game is done
+     * Determine if the game is done, setting score of winner to max
      * @return True if any player has met the standard score limit of 121
      */
     public boolean isDone(){
         for(Player p: players){
-            if(p.score >= 121) return true;
+            if(p.score >= 121){
+                p.score = 121;
+                return true;
+            }
         }
         return false;
+    }
+
+    /**
+     * Makes an array of the scores
+     * @return An array of the scores of the players
+     */
+    int [] getScore(){
+        int [] scores = new int[this.players.length];
+        for(int i = 0; i < this.players.length; i++){
+            scores[i] = this.players[i].getScore();
+        }
+        return scores;
     }
 
     /*TODO for pegging run count use Hand.isRun(set) where set increasingly becomes last n elements in

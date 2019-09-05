@@ -8,7 +8,7 @@ import java.util.Random;
 public class Deck implements Iterable {
     ArrayList<Card> deck;
     int top;
-    final static Random rng = new Random(12);
+    final static Random rng = new Random();
 
     /**
      * Create a standard 52 card French deck
