@@ -57,7 +57,7 @@ public class Cribbage implements Game {
 
         /* Pegging */
         boolean can_peg = true;
-        int pegger = this.dealer;
+        int pegger = (this.dealer+1)%this.players.length;
         int running_sum = 0;
         ArrayList<Card> peg_pile = new ArrayList<Card>();
         while(can_peg) {
