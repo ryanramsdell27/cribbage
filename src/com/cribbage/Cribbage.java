@@ -14,7 +14,7 @@ public class Cribbage implements Game {
     Hand crib;
 
     /**
-     * Create a new deck, shuffle, and deal to players
+     * Creates a new deck, shuffles, and deals to players
      */
     public Cribbage(int dealer){
         this.crib = new Hand();
@@ -30,7 +30,7 @@ public class Cribbage implements Game {
     }
 
     /**
-     * Steps through one hand of the game, starting with the deal,
+     * Steps through one hand of this game, starting with the deal,
      * then discarding, pegging, and finally scoring
      */
     public void step(){
@@ -121,7 +121,7 @@ public class Cribbage implements Game {
     }
 
     /**
-     * Determine if the game is done, setting score of winner to max
+     * Determines if the game is done, setting score of winner to max
      * @return True if any player has met the standard score limit of 121
      */
     public boolean isDone(){

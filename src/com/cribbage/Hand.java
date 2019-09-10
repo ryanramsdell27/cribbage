@@ -33,7 +33,7 @@ public class Hand implements Iterable<Card> {
     }
 
     /**
-     * Creates an iterator to go through elements of power set of the hand
+     * Creates an iterator to go through elements of the power set of the hand
      * @return An iterator that enumerates the power set
      */
     Iterator<ArrayList<Card>> getPowerSetIterator(){
@@ -47,7 +47,7 @@ public class Hand implements Iterable<Card> {
     }
 
     /**
-     * Find the number of cards in the hand by looking at size of card list
+     * Finds the number of cards in this hand by looking at size of card list
      * @return The number of cards in the hand
      */
     int size(){
@@ -55,7 +55,7 @@ public class Hand implements Iterable<Card> {
     }
 
     /**
-     * Adds a card to the hand
+     * Adds a card to this hand
      * @param c The Card object to add
      */
     public void add(Card c){
@@ -63,7 +63,7 @@ public class Hand implements Iterable<Card> {
     }
 
     /**
-     * Add several cards to the hand
+     * Adds several cards to this hand
      * @param cards The array of Cards
      */
     void add(Card [] cards){
@@ -71,15 +71,15 @@ public class Hand implements Iterable<Card> {
     }
 
     /**
-     * Checks if the hand contains a specific card
-     * @param card The card to check if in hand
-     * @return True if the hand contains the card
+     * Checks if this hand contains a specific card
+     * @param card The card to check if in this hand
+     * @return True if this hand contains the card
      */
     boolean contains(Card card){
         return this.hand.contains(card);
     }
     /**
-     * Removes a card from the hand
+     * Removes a card from this hand
      * @param c The Card object to remove
      */
     void remove(Card c){
@@ -87,7 +87,7 @@ public class Hand implements Iterable<Card> {
     }
 
     /**
-     * Removes all cards from the cand
+     * Removes all cards from this hand
      */
     void clear(){
         this.hand.clear();
@@ -99,9 +99,9 @@ public class Hand implements Iterable<Card> {
 
 
     /**
-     * Scores the hand and returns the value
+     * Scores this hand and returns its value
      * TODO keep list(s) of scoring sets to display to user which parts scored
-     * @return The value of the hand
+     * @return The value of this hand
      */
     int scoreHand(){
         int score = 0;

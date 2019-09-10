@@ -10,12 +10,12 @@ package com.cribbage;
 public interface Game {
 
     /**
-     * Steps a single round/hand in a game
+     * Steps a single round/hand in this game
      */
     void step();
 
     /**
-     * Determines if a game has finished
+     * Determines if this game has finished
      * @return Whether or not the game has finished
      */
     boolean isDone();

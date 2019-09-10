@@ -1,7 +1,7 @@
 package com.cribbage;
 
 /**
- * Representation of a card from a standard 5s card French deck.
+ * Representation of a card from a standard 52 card French deck.
  * @author Ryan
  */
 public class Card implements Comparable<Card> {
@@ -11,8 +11,7 @@ public class Card implements Comparable<Card> {
 
     /**
      * Creates a new card. There is a bijective mapping between Z/52 and cards in a deck.
-     * In reverse we would do suit*4 + rank to get a simple int representation of a card
-     * @param init The int representation of a card
+     * @param init The int representation of this card
      */
     public Card(int init){
         this.suit = init % 4;
@@ -22,7 +21,7 @@ public class Card implements Comparable<Card> {
     }
 
     /**
-     * Builds a string showing rank and suit of the card
+     * Builds a string showing rank and suit of this card
      * @return String representation of rank and suit
      */
     @Override

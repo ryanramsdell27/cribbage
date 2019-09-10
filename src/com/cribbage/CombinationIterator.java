@@ -24,7 +24,7 @@ public class CombinationIterator<E> implements Iterator {
     private boolean has_next;
 
     /**
-     * Constructor for an iterator that enumerate combinations of size num of elements in
+     * Constructs an iterator that enumerate combinations of size <code>num</code> of elements in
      * the given set.
      * @param set The set from which the combinations are constructed
      * @param num The cardinality of the returned sets
@@ -67,7 +67,7 @@ public class CombinationIterator<E> implements Iterator {
     }
 
     /**
-     * Determines if the iterator has a next combination
+     * Determines if this iterator has a next combination
      * @return True if another combination exists
      */
     @Override
@@ -77,8 +77,7 @@ public class CombinationIterator<E> implements Iterator {
 
     /**
      * Get a combination of the desired number of elements form the provided set in the enumeration
-     * described by the increment method
-     * @return A combination subset from the set
+     * @return A subset (n-combination) of the set
      */
     @Override
     public Object next() {

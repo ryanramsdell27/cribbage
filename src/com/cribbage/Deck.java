@@ -11,7 +11,7 @@ public class Deck implements Iterable {
     final static Random rng = new Random();
 
     /**
-     * Create a standard 52 card French deck
+     * Creates a standard 52 card French deck
      */
     Deck(){
         top = 0;
@@ -22,7 +22,7 @@ public class Deck implements Iterable {
     }
 
     /**
-     * Shuffles the deck using the static rng
+     * Shuffles this deck using the static random number generator
      */
     void shuffle(){
         this.top = 0;
@@ -30,8 +30,8 @@ public class Deck implements Iterable {
     }
 
     /**
-     * Selects the top card(s) from the deck to return and moves deck pointer
-     * @param num The number of card to deal, positive integer less than size of deck
+     * Selects the top card(s) from this deck to return and moves deck pointer
+     * @param num The number of card to deal, positive integer less than size of this deck
      * @return An array of the dealt cards, null if invalid input
      */
     Card [] deal(int num){
@@ -47,9 +47,8 @@ public class Deck implements Iterable {
     }
 
     /**
-     * Produces an iterator to go over the implemented list of cards in the deck.
-     * It is inherited from the ArrayList iterator() method
-     * @return A Card iterator over a standard deck of cards
+     * Produces an iterator to go over the implemented list of cards in this deck.
+     * @return A <code>Card</code> iterator over a standard deck of cards
      */
     @Override
     public Iterator<Card> iterator() {

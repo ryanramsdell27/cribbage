@@ -28,7 +28,7 @@ public class PowerSetIterator<E> implements Iterator {
     }
 
     /**
-     * Track that our location in the enumeration of the power set is less
+     * Tracks that our location in the enumeration of the power set is less
      * than it's cardinality of 2^num_bits
      * @return True if there are still elements to enumerate
      */

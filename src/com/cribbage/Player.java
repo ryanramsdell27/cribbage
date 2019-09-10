@@ -26,14 +26,14 @@ public abstract class Player {
     }
 
     /**
-     * Constructor for Player that creates hand
+     * Constructor that creates hand
      */
     public Player(){
         this.hand = new Hand();
     }
 
     /**
-     * Sets up the pegging hand from the selected cards
+     * Sets up this players pegging hand from the selected cards
      */
     void setPeg(){
         this.peg = new Hand();
@@ -43,10 +43,10 @@ public abstract class Player {
     }
 
     /**
-     * Check if the player has cards in their peg hand that can be pegged
-     * and keep the score at or under 31
+     * Check if this player has cards in their peg hand that can be pegged
+     * while keeping the score at or under 31
      * @param peg_pile The current stack of card
-     * @return True if the player has a card that can be pegged
+     * @return True if this player has a card that can be pegged
      */
     boolean canPeg(ArrayList<Card> peg_pile){
         int sum = 0;
@@ -61,7 +61,7 @@ public abstract class Player {
     }
 
     /**
-     * Increases the score of the Player by the specified amount
+     * Increases the score of this player by the specified amount
      * @param score Amount to increase score by
      */
     void increaseScore(int score){
@@ -77,8 +77,8 @@ public abstract class Player {
     }
 
     /**
-     * Player representation as the current Hand
-     * @return String displaying the current Hand
+     * Makes this player's representation as its current <code>Hand</code>
+     * @return String displaying the current hand
      */
     @Override
     public String toString() {
